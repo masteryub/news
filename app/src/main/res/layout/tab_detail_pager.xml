@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.yubing.news.view.TopNewsViewPager
+        android:id="@+id/vp_news"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+    </com.yubing.news.view.TopNewsViewPager>
+
+    <com.yubing.news.view.RefreshListView
+        android:id="@+id/lv_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:cacheColorHint="#fff">
+    </com.yubing.news.view.RefreshListView>
+
+</LinearLayout>

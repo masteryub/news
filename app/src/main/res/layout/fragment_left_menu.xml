@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0c9"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录/注册"
+        android:textColor="#fff"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        />
+    <!--android:divider="@android:color/transparent"去掉分割线-->
+
+    <ListView
+        android:id="@+id/lv_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:layout_marginTop="80dp" />
+</RelativeLayout>

@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\AndroidStudioProjects\\News\\VpTitleLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
+        "source": "D:\\AndroidStudioProjects\\News\\VpTitleLibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\News\\VpTitleLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__tab_text_indicator.xml",
+        "source": "D:\\AndroidStudioProjects\\News\\VpTitleLibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__tab_text_indicator.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudioProjects\\News\\VpTitleLibrary\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "D:\\AndroidStudioProjects\\News\\VpTitleLibrary\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
+    }
+]
