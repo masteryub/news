@@ -87,7 +87,7 @@ public class TabDetailPager extends BaseMenuDetailPager {
     private void parseData(String result) {
         Gson gson = new Gson();
         mTabData1 = gson.fromJson(result, TabData.class);
-        //System.out.println(mTabData1);
+        System.out.println(mTabData1);
         System.out.println(mTabData1);
         mViewPager.setAdapter(new TopNewsAdapter());
     }
