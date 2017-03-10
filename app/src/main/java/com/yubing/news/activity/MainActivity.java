@@ -1,5 +1,6 @@
 package com.yubing.news.activity;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import android.support.v4.app.FragmentManager;
@@ -23,7 +24,9 @@ public class MainActivity extends SlidingFragmentActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         //设置侧边栏布局
         setBehindContentView(R.layout.activity_left_menu);
@@ -40,6 +43,7 @@ public class MainActivity extends SlidingFragmentActivity {
         //slidingMenu.setSecondaryMenu();
         // slidingMenu.setMode(SlidingMenu.LEFT_RIGHT);
         initFragement();
+
     }
 
     private void initFragement() {

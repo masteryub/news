@@ -46,7 +46,7 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
         //初始化自定义控件TabPageIndicator
 
         mIndicator = (TabPageIndicator) view.findViewById(R.id.indicator);
-//当viewPager和Indicator绑定时
+     //当viewPager和Indicator绑定时
         //滑动监听需要设置给 Indicator而不是ViewPager
         mIndicator.setOnPageChangeListener(this);
         return view;

@@ -22,7 +22,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             ></activity>
         <activity android:name=".activity.MainActivity"
-android:theme="@style/Theme.PageIndicatorDefaults"
+
+        android:theme="@style/Theme.PageIndicatorDefaults"
             ></activity>
     </application>
 

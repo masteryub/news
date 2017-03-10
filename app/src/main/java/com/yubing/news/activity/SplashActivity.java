@@ -1,8 +1,8 @@
 package com.yubing.news.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -12,16 +12,23 @@ import android.widget.RelativeLayout;
 
 import com.yubing.news.R;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class SplashActivity extends AppCompatActivity {
 
+   // @InjectView(R.id.activity_splash)
+    //RelativeLayout mActivitySplash;
     private RelativeLayout rlRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        //ButterKnife.inject(this);
         initView();
     }
+
     private void initView() {
         rlRoot = (RelativeLayout) findViewById(R.id.activity_splash);
         startAnim();
@@ -52,7 +59,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-          startActivity(new Intent(SplashActivity.this,GuideActivity.class));
+                startActivity(new Intent(SplashActivity.this, GuideActivity.class));
                 finish();
             }
 
