@@ -115,11 +115,13 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
                 }
                 //不要qui充绘所有的Item所以不要用更新去做
                // mNewsAdapter.notifyDataSetChanged();
-               changeReadState(view);// 实现局部界面刷新, 这个view就是被点击的item布局对象
+               changeReadState(view1);// 实现局部界面刷新, 这个view就是被点击的item布局对象
 
                 // 跳转新闻详情页
                 Intent intent = new Intent();
+
                 intent.setClass(mActivity, NewsDetailActivity.class);
+
                 intent.putExtra("url", mNews.get(position).url);
                 mActivity.startActivity(intent);
             }
@@ -195,6 +197,7 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
             mTopnews = mTabData1.data.topnews;
 
             mNews = mTabData1.data.news;
+
             if(mTopnews!=null){
                 mViewPager.setAdapter(new TopNewsAdapter());
                 mIndicator.setViewPager(mViewPager);
@@ -210,11 +213,8 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
             }
         }else{
         ArrayList<TabData.TabNewsData> news= mTabData1.data.news;
-            if(mNews!=null){
                 mNews.addAll(news);
                 mNewsAdapter.notifyDataSetChanged();
-            }
-
 
         }
 
@@ -288,7 +288,7 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
 
             holder.tvTitle.setText(item.title);
             holder.tvDate.setText(item.pubdate);
-
+            //System.out.println(item.url+"........");
            utils.display(holder.ivPic, item.listimage);
 
             String ids=PrefUtils.getString(mActivity,"read_ids","");
