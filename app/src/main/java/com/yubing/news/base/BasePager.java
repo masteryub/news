@@ -24,6 +24,7 @@ public class BasePager {
 
     public FrameLayout mFlContent;
     public ImageButton mImgBtnMenu;
+    public ImageButton mBtnPhoto;
 
     public BasePager(Activity mActivity) {
         this.mActivity = mActivity;
@@ -40,8 +41,8 @@ public class BasePager {
         mFlContent= (FrameLayout) mRootView.findViewById(R.id.fl_base_content);
 
         mImgBtnMenu = (ImageButton) mRootView.findViewById(R.id.img_btn_menu);
-
-     mImgBtnMenu.setOnClickListener(new View.OnClickListener() {
+        mBtnPhoto = (ImageButton) mRootView.findViewById(R.id.btn_photo);
+        mImgBtnMenu.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
              toggleSlidingMenu();
@@ -50,6 +51,7 @@ public class BasePager {
 
     }
     /**
+     *
      *
      * 切换SlidingMenu的状态
      * @param

@@ -4,10 +4,15 @@ package com.yubing.news.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SearchViewCompat;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,6 +38,7 @@ import com.yubing.news.activity.NewsDetailActivity;
 import com.yubing.news.bean.NewsData;
 import com.yubing.news.bean.TabData;
 import com.yubing.news.global.GlobalContants;
+import com.yubing.news.utils.CacheUtils;
 import com.yubing.news.utils.PrefUtils;
 import com.yubing.news.utils.Utils;
 import com.yubing.news.view.RefreshListView;
@@ -63,6 +69,7 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
     private NewsAdapter mNewsAdapter;
     private String mMoreUrl;
 
+    private Handler mHandler;
     public TabDetailPager(Activity activity, NewsData.NewsTabData newsTabData) {
         super(activity);
         mTabData = newsTabData;
@@ -138,7 +145,10 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
     }
     @Override
     public void initData() {
-
+        String cache = CacheUtils.getCache(mUrl, mActivity);
+        if(!TextUtils.isEmpty(cache)){
+            parseData(cache,false);
+        }
         getDataFromServer();
     }
 
@@ -151,6 +161,8 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
                 //System.out.println(result);
                 parseData(result,false);
                 lvList.onRefreshComplete(true);
+
+                CacheUtils.setCache(mUrl,result,mActivity);
             }
 
             @Override
@@ -211,15 +223,32 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
 
                 lvList.setAdapter(mNewsAdapter);
             }
+             //自动轮播实现
+            if(mHandler==null){
+                mHandler= new Handler(){
+                    @Override
+                    public void handleMessage(Message msg) {
+                        int currntItem= mViewPager.getCurrentItem();
+                        if(currntItem<mTopnews.size()-1){
+                            currntItem++;
+                        }else{
+                            currntItem=0;
+                        }
+
+                        mViewPager.setCurrentItem(currntItem);
+                        //延时3秒再发消息如果不再发消息就会只走一次这样会无线循环
+                        mHandler.sendEmptyMessageDelayed(0,3000);
+                    }
+                };
+                //延时三秒发消息
+                mHandler.sendEmptyMessageDelayed(0,3000);
+            }
         }else{
-        ArrayList<TabData.TabNewsData> news= mTabData1.data.news;
+            ArrayList<TabData.TabNewsData> news= mTabData1.data.news;
                 mNews.addAll(news);
                 mNewsAdapter.notifyDataSetChanged();
 
         }
-
-
-
 
     }
 
@@ -341,9 +370,40 @@ public class TabDetailPager extends BaseMenuDetailPager implements ViewPager.OnP
             //传递ImageView对象地址
             mUtils.display(image,topNewsData.topimage);
             container.addView(image);
+
+            image.setOnTouchListener(new TopNewsTouchListner());
             return image;
         }
+class TopNewsTouchListner implements View.OnTouchListener{
 
+    /**
+     * 头条新闻的触摸监听
+     * @param view
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        switch(event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                //删除Handler里面的所有消息和Runnable回调
+                mHandler.removeCallbacksAndMessages(null);
+                break;
+            //按住之后取消了按久了事件就会被消耗掉
+            //抬起事件就不会响应了
+            case MotionEvent.ACTION_CANCEL:
+                mHandler.sendEmptyMessageDelayed(0,3000);
+                break;
+            case MotionEvent.ACTION_UP:
+                mHandler.sendEmptyMessageDelayed(0,3000);
+                break;
+            default :
+            break;
+        }
+
+        return false;
+    }
+}
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {

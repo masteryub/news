@@ -26,6 +26,16 @@
             android:layout_marginLeft="6dp"
             android:background="@null"
             android:src="@drawable/btn_img_menu_selector" />
+        <ImageButton
+            android:id="@+id/btn_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@null"
+            android:src="@drawable/icon_pic_grid_type"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <FrameLayout

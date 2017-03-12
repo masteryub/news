@@ -2,6 +2,8 @@ package com.yubing.news.base.impl;
 
 import android.app.Activity;
 
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -20,6 +22,7 @@ import com.yubing.news.base.menudetail.TopicMenuDetailPager;
 import com.yubing.news.bean.NewsData;
 import com.yubing.news.fragment.LeftMenuFragment;
 import com.yubing.news.global.GlobalContants;
+import com.yubing.news.utils.CacheUtils;
 
 import java.util.ArrayList;
 
@@ -50,7 +53,16 @@ public class NewsCenterPager extends BasePager {
         //向Framenlayout 添加动态布局
         mFlContent.addView(text);*/
 
-        getDataFromServer();
+
+        //获取缓存数据
+    String cache= CacheUtils.getCache(GlobalContants.CATEGORIES_URL,mActivity);
+        //如果为空则取从网络获取
+        if(!TextUtils.isEmpty(cache)){
+           parseData(cache);
+        }
+        //不管有没有缓存都从网络上去获取最新数据
+        //先
+            getDataFromServer();
 
 
     }
@@ -73,7 +85,8 @@ public class NewsCenterPager extends BasePager {
                 String result = responseInfo.result;
                 //System.out.println(result);
                 parseData(result);
-
+                //设置缓存
+              CacheUtils.setCache(GlobalContants.CATEGORIES_URL,result,mActivity);
             }
 
             @Override
@@ -105,7 +118,7 @@ public class NewsCenterPager extends BasePager {
         mPagers = new ArrayList<BaseMenuDetailPager>();
         mPagers.add(new NewsMenuDetailPager(mActivity, children));
         mPagers.add(new TopicMenuDetailPager(mActivity));
-        mPagers.add(new PhotoMenuDetailPager(mActivity));
+        mPagers.add(new PhotoMenuDetailPager(mActivity,mBtnPhoto));
         mPagers.add(new InteractMenuDetailPager(mActivity));
         //设置菜单详情页-新闻为默认当前页
         setCurrentMenuDetailpager(0);
@@ -128,6 +141,12 @@ public class NewsCenterPager extends BasePager {
 
       //初始化当前页面的数据
         pager.initData();
+        if(pager instanceof PhotoMenuDetailPager){
+       mBtnPhoto.setVisibility(View.VISIBLE);
+        }else{
+            mBtnPhoto.setVisibility(View.GONE);
+        }
+
     }
 
 
